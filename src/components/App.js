@@ -3,13 +3,16 @@ import '../App.css';
 import { Route, Switch } from 'react-router-dom';
 import Profile from './Profile.js';
 import Home from './Home.js';
+import Login from './Login.js';
 import $ from 'jquery';
 
 
 
 class App extends Component {
     state = {
-        cards: [],
+        currentUser: {},
+        users:[],
+        posts:[],
         sorting:'timestamp',
     }
 
@@ -18,26 +21,35 @@ class App extends Component {
     }
 
     loadData = () => {
-        const {cards} = this.state;
-        let card;
-        const url = `http://www.mocky.io/v2/5c0a8fbe3500006c00a861de`;
+        const {users,posts} = this.state;
+        let user;
+        let singlePost;
+        const url = `https://www.mocky.io/v2/5c0e1c372e00000e00043c91`;
 
         //fetch data from foursquare
         fetch(url)
         .then((response) => {
+            console.log(response.status);
             response.json().then((data) => {
                 if (response.status === 200) {
                   console.log('API Call Successful');
                     data.forEach((item, i) => {
-                        card = {id:item.Image.substring(item.Image.lastIndexOf('/')+1), likes: item.likes, timestamp: item.timestamp, image:item.Image, liked:false};
-                        cards.push(card);
+                        user = {id:item.id, name:item.name, following:item.following, followers: item.followers}
+                        user['liked'] = [];
+                        item.posts.forEach((post, i) => {
+                            singlePost = {id:post.id, userid:item.id, likes: post.likes, timestamp: post.timestamp, imageUrl:post.imageUrl}
+                            posts.push(singlePost);
+                        });
+                        users.push(user);
                     });
                 } else {
-                    card = {text:"Sorry, Unable to retrieve data from API"}
+                    console.log('Sorry, Unable to retrieve data from API');
                 }
-            // handle Errors
-            this.setState({cards});
-          })
+            this.setState({users,posts});
+            console.log(users);
+        }).catch((error) => {
+            console.log('Call is Not Successful '+error);
+        })
       }).catch((error) => {
             console.log('API Not Responding'+error)
         });
@@ -45,72 +57,101 @@ class App extends Component {
     }
 
     updateSorting = (sorting) => {
-        console.log('sorted');
         this.setState({sorting: sorting})
     }
 
-    deleteCard = (id) => {
-        const {cards} = this.state;
-        cards.splice(id,1);
-        this.setState({cards});
+    updateCurrentUser = (userid) => {
+        const {users, currentUser} = this.state;
+        let newUser;
+        users.forEach((user)=>{
+            if(user.id === userid){
+                newUser = user;
+            }
+        });
+        this.setState({currentUser:newUser})
     }
 
-    cardLiker = (target, item) => {
-        const {cards} = this.state;
-        cards.forEach((card)=>{
-            if(card.id === item.id){
-                if(!item.liked){
-                    card.likes += 1;
-                    card.liked = true;
-                    $(target).css('color','red');
-                    $(target).parent().parent().siblings('.card').find('img').css('cursor','pointer');
+    deletePost = (postid) => {
+        const {posts, currentUser} = this.state;
+
+        posts.some((post, i) => {
+            if(post.id === postid){
+                if(post.userid === currentUser.id){
+                    posts.slice(i, 1);
+                    this.setState({posts});
+                    return 'deleted';
                 }else{
-                    card.likes -= 1;
-                    card.liked = false;
-                    $(target).css('color','grey');
-                    $(target).parent().parent().siblings('.card').find('img').css('cursor','url("https://cdn.iconscout.com/icon/free/png-32/love-1120-894769.png"), auto');
+                    return 'Authorization denied!'
                 }
             }
         });
-        this.setState({cards});
+        return 'Post doesn\'t exists';
     }
 
-    sortCards = (sorting,cards) => {
-        let sortedCards;
+    postLiker = (postid) => {
+        const {posts, currentUser} = this.state;
+
+        posts.some((post, i) => {
+            if(post.id === postid){
+                let Likedindex = currentUser.liked.indexOf(postid)
+                if(!(Likedindex >= 0)){
+                    post.likes += 1;
+                    currentUser.liked.push(postid);
+                    return null;
+                }else{
+                    post.likes -= 1;
+                    currentUser.liked.slice(Likedindex, 1);
+                    return null;
+                }
+            }
+        });
+        this.setState({posts});
+    }
+
+    sortPosts = (sorting, posts) => {
+        let sortedPosts;
         if(sorting === 'timestamp'){
-            sortedCards = cards.sort(function(obj1, obj2) {
+            sortedPosts = posts.sort(function(obj1, obj2) {
             	return Date.parse(obj2[sorting]) - Date.parse(obj1[sorting]);
             });
         } else{
-            sortedCards = cards.sort(function(obj1, obj2) {
+            sortedPosts = posts.sort(function(obj1, obj2) {
             	return obj2[sorting] - obj1[sorting];
             });
         }
-        return sortedCards;
+        return sortedPosts;
     }
 
     render() {
-        const {sorting, cards} = this.state;
+        const {sorting, posts, users, currentUser} = this.state;
+        let sortedPosts = this.sortPosts('timestamp', posts);
         return (
             <Switch>
                 <Route exact path='/' render={() => (
+                    <Login
+                        users = {users}
+                        updateCurrentUser = {this.updateCurrentUser}
+                        currentUser = {currentUser}
+                    />
+                )}/>
+                <Route exact path='/home' render={() => (
                     <Home
-                    cards = {cards}
+                    currentUser = {currentUser}
+                    posts = {sortedPosts}
+                    postLiker = {this.postLiker}
+                    deletePost = {this.deletePost}
                     sorting = {sorting}
-                    sortCards = {this.sortCards}
-                    cardLiker = {this.cardLiker}
-                    deleteCard = {this.deleteCard}
-                    updateSorting = {this.updateSorting}
+                    sortPosts = {this.sortPosts}
                     />
                 )}/>
                 <Route exact path='/profile' render={() => (
                     <Profile
-                    cards = {cards}
+                    posts = {sortedPosts}
                     sorting = {sorting}
-                    sortCards = {this.sortCards}
-                    deleteCard = {this.deleteCard}
+                    sortPosts = {this.sortPosts}
+                    deletePost = {this.deletePost}
                     updateSorting = {this.updateSorting}
-                    cardLiker = {this.cardLiker}
+                    postLiker = {this.postLiker}
                     />
                 )}/>
             </Switch>

@@ -24,7 +24,7 @@ class Card extends Component {
 
         return (
             <li tabIndex="0" id={card.id} className="card" role="gridcell" onMouseOver = {(e) => this.handleCardHover(e)} onMouseLeave = {(e) => this.handleCardHoverOut(e)}>
-                <img src={card.image} alt=' ' onClick= {(e) => this.handleClick(e, cardLiker, card)}/>
+                <img src={card.imageUrl} alt=' ' onClick= {(e) => this.handleClick(e, cardLiker, card)}/>
                  <i className="fa fa-trash trash" aria-hidden="true" title="Delete" onClick = {(e) => this.handleCardDelete(index,deleteCard)}></i>
             </li>
         );

@@ -1,4 +1,5 @@
 import React,{ Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import Header from './Header';
 import Card from './Card';
 import CardHeader from './CardHeader';
@@ -8,32 +9,37 @@ import '../sass/style.scss';
 class Home extends Component {
 
     render() {
-        const {cards, sorting, sortCards, deleteCard, cardLiker} = this.props;
-        let finalCards = sortCards(sorting, cards);
+        const {posts, sorting, sortPosts, deletePost, postLiker} = this.props;
+        let finalPosts = sortPosts(sorting, posts);
 
+        if(Object.keys(this.props.currentUser).length === 0){
+            console.log('not logged in!'+this.props.currentUser);
+            return <Redirect to='/' />;
+        }
+        
         return (
         <div className="main">
             <Header
-            cards = {cards}
+            cards = {posts}
             />
             <div className="card-view" role="grid">
             <ul className="cards-list container">
-                {finalCards.map((card, i) =>
-                    <div className="image-box" key ={card.id}>
+                {finalPosts.map((post, i) =>
+                    <div className="image-box" key ={post.id}>
                         <CardHeader
-                        card = {card}
+                        card = {post}
                         />
                         <Card
-                        key = {card.id}
-                        card = {card}
-                        deleteCard = {deleteCard}
+                        key = {post.id}
+                        card = {post}
+                        deleteCard = {deletePost}
                         index = {i}
-                        cards = {cards}
-                        cardLiker = {cardLiker}
+                        cards = {posts}
+                        cardLiker = {postLiker}
                         />
                         <CardDetail
-                            card = {card}
-                            cardLiker = {cardLiker}
+                            card = {post}
+                            cardLiker = {postLiker}
                         />
                     </div>
                 )}

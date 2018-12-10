@@ -11,9 +11,9 @@ class Header extends Component {
         const {cards} = this.props;
         return (
         <header>
-            <div className="head-content container">
+            <div className="head-content">
                 <div className="branding">
-                    <a href="/"><img src={logo} alt="logo" /></a>
+                    <a href="/home"><img src={logo} alt="logo" /></a>
                 </div>
                 <div className="nav">
                 <Link to='/profile'>
