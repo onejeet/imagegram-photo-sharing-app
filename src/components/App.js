@@ -4,7 +4,8 @@ import { Route, Switch } from 'react-router-dom';
 import Profile from './Profile.js';
 import Home from './Home.js';
 import Login from './Login.js';
-import $ from 'jquery';
+
+var DefaultAvatar = 'https://i.postimg.cc/FHh1RDbt/128px-Creative-Tail-Animal-kangoroo-svg.png';
 
 
 
@@ -24,7 +25,7 @@ class App extends Component {
         const {users,posts} = this.state;
         let user;
         let singlePost;
-        const url = `https://www.mocky.io/v2/5c0e1c372e00000e00043c91`;
+        const url = `https://www.mocky.io/v2/5c0f81d23100005c1324ec9c`;
 
         //fetch data from foursquare
         fetch(url)
@@ -34,7 +35,7 @@ class App extends Component {
                 if (response.status === 200) {
                   console.log('API Call Successful');
                     data.forEach((item, i) => {
-                        user = {id:item.id, name:item.name, following:item.following, followers: item.followers}
+                        user = {id:item.id, name:item.name, following:item.following, followers: item.followers, avatar: item.avatar ? item.avatar : DefaultAvatar}
                         user['liked'] = [];
                         item.posts.forEach((post, i) => {
                             singlePost = {id:post.id, userid:item.id, likes: post.likes, timestamp: post.timestamp, imageUrl:post.imageUrl}
@@ -56,8 +57,8 @@ class App extends Component {
 
     }
 
-    updateSorting = (sorting) => {
-        this.setState({sorting: sorting})
+    updateSorting = (sort) => {
+        this.setState({sorting: sort})
     }
 
     updateCurrentUser = (userid) => {
@@ -71,21 +72,33 @@ class App extends Component {
         this.setState({currentUser:newUser})
     }
 
+    getUser = (userid) => {
+        const {users} = this.state;
+        let user;
+        users.some((u) => {
+            if(u.id === userid){
+                user = u;
+                return true;
+            }
+            return false;
+        });
+        return user;
+    }
+
     deletePost = (postid) => {
         const {posts, currentUser} = this.state;
-
         posts.some((post, i) => {
             if(post.id === postid){
                 if(post.userid === currentUser.id){
-                    posts.slice(i, 1);
-                    this.setState({posts});
-                    return 'deleted';
+                    posts.splice(i,1);
+                    return true;
                 }else{
-                    return 'Authorization denied!'
+                    return true;
                 }
             }
+            return null;
         });
-        return 'Post doesn\'t exists';
+        this.setState({posts});
     }
 
     postLiker = (postid) => {
@@ -100,10 +113,11 @@ class App extends Component {
                     return null;
                 }else{
                     post.likes -= 1;
-                    currentUser.liked.slice(Likedindex, 1);
+                    currentUser.liked.splice(Likedindex, 1);
                     return null;
                 }
             }
+            return null;
         });
         this.setState({posts});
     }
@@ -124,7 +138,7 @@ class App extends Component {
 
     render() {
         const {sorting, posts, users, currentUser} = this.state;
-        let sortedPosts = this.sortPosts('timestamp', posts);
+        let sortedPosts = this.sortPosts(sorting, posts);
         return (
             <Switch>
                 <Route exact path='/' render={() => (
@@ -142,10 +156,13 @@ class App extends Component {
                     deletePost = {this.deletePost}
                     sorting = {sorting}
                     sortPosts = {this.sortPosts}
+                    getUser = {this.getUser}
                     />
                 )}/>
                 <Route exact path='/profile' render={() => (
                     <Profile
+                    currentUser = {currentUser}
+                    getUser = {this.getUser}
                     posts = {sortedPosts}
                     sorting = {sorting}
                     sortPosts = {this.sortPosts}

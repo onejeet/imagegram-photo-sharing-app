@@ -2,7 +2,6 @@ import React,{ Component } from 'react';
 import { Link } from 'react-router-dom';
 import UserCard from './UserCard';
 import logo from '../img/logo.png';
-import Header from './Header';
 import '../sass/style.scss';
 
 class Login extends Component {

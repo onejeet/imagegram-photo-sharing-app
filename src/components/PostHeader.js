@@ -1,19 +1,20 @@
 import React,{ Component } from 'react';
-import avatar from '../img/avatar.svg'
+import { Link } from 'react-router-dom';
 
 
-class ProfileInfo extends Component {
+class PostHeader extends Component {
 
     render(){
-        const {card} = this.props;
+        const {post, getUser} = this.props;
+        let user = getUser(post.userid);
         return (
             <div className="card-header">
-                <div className="userInfo">
+                <div className="wrapper">
                     <div className="avatar">
-                        <img src={avatar} alt='' />
+                        <img src={user.avatar} alt='' />
                     </div>
                     <div className="info">
-                        <a href="/profile"><p>Alex Martini</p></a>
+                        <Link to={"/profile?id="+user.id}><p>{user.id}</p></Link>
                         <p className="location"><i className="fa fa-globe" aria-hidden="true"></i>Santa Clara</p>
                     </div>
                 </div>
@@ -23,4 +24,4 @@ class ProfileInfo extends Component {
     }
 }
 
-export default ProfileInfo;
+export default PostHeader;

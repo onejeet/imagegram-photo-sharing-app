@@ -16,10 +16,12 @@ class Header extends Component {
     render(){
         //const {cards} = this.props;
         return (
-            <label htmlFor="test">
-                <div><i className="fa fa-cloud-upload" aria-hidden="true"></i> Upload</div>
-                <input type="file" id="test" onChange={(e)=>this.handleImageChange(e)}/>
-            </label>
+            <div class="upload">
+                <label htmlFor="upload">
+                    <i className="fa fa-cloud-upload" aria-hidden="true"></i>
+                </label>
+                <input type="file" id="upload" onChange={(e)=>this.handleImageChange(e)}/>
+            </div>
         );
 
     }

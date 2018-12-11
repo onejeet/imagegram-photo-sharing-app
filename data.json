@@ -1,6 +1,7 @@
 [{
     	"id": "alex01",
 		"name": "Alex Martini",
+		"avatar": "https://i.postimg.cc/6q6pMQMH/128px-Creative-Tail-People-police-man-svg.png",
 		"followers": 100,
 		"following": 2000,
 		"posts": [{
@@ -91,6 +92,7 @@
 	}, {
 		"id": "onejeet",
 		"name": "Jeet",
+		"avatar" : "https://i.postimg.cc/9Q9CtTWm/128px-Creative-Tail-Animal-fox-svg.png",
 		"followers": 3000,
 		"following": 80000,
 		"posts": [{
@@ -122,6 +124,7 @@
 	{
 		"id": "msewq",
 		"name": "merlin sewq",
+		"avatar": "https://i.postimg.cc/Jn4fgBWB/128px-Creative-Tail-People-king-svg.png",
 		"followers": 9000,
 		"following": 89678996,
 		"posts": [{
