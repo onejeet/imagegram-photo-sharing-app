@@ -16,7 +16,7 @@ class Header extends Component {
     render(){
         //const {cards} = this.props;
         return (
-            <div class="upload">
+            <div className="upload">
                 <label htmlFor="upload">
                     <i className="fa fa-cloud-upload" aria-hidden="true"></i>
                 </label>

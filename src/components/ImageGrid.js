@@ -1,4 +1,5 @@
 import React,{ Component } from 'react';
+import { Link } from 'react-router-dom';
 import Post from './Post';
 import '../sass/style.scss';
 
@@ -12,14 +13,15 @@ class ImageGrid extends Component {
                 <ul className="cards-list container">
                     {posts.map((post, i) =>
                         (post.userid === user.id) ?
-                        <Post
-                        key = {post.id}
-                        post = {post}
-                        deletePost = {deletePost}
-                        posts = {posts}
-                        postLiker = {postLiker}
-                        />
-                        :''
+                        <Link to = '/photo' key = {post.id} post={post}>
+                            <Post
+                            key = {post.id}
+                            post = {post}
+                            posts = {posts}
+                            postLiker = {postLiker}
+                            />
+                        </Link>
+                        :null
                     )}
                 </ul>
             </div>

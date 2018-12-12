@@ -3,6 +3,7 @@ import '../App.css';
 import { Route, Switch } from 'react-router-dom';
 import Profile from './Profile.js';
 import Home from './Home.js';
+import Photo from './Photo';
 import Login from './Login.js';
 
 var DefaultAvatar = 'https://i.postimg.cc/FHh1RDbt/128px-Creative-Tail-Animal-kangoroo-svg.png';
@@ -169,6 +170,14 @@ class App extends Component {
                     deletePost = {this.deletePost}
                     updateSorting = {this.updateSorting}
                     postLiker = {this.postLiker}
+                    />
+                )}/>
+                <Route exact path='/photo' render={() => (
+                    <Photo
+                    currentUser = {currentUser}
+                    deletePost = {this.deletePost}
+                    postLiker = {this.postLiker}
+                    getUser = {this.getUser}
                     />
                 )}/>
             </Switch>

@@ -7,7 +7,7 @@ import Upload from './Upload';
 class Header extends Component {
 
     render(){
-        const {posts, currentUser} = this.props;
+        const {currentUser} = this.props;
         return (
         <header>
             <div className="head-content">
@@ -23,7 +23,6 @@ class Header extends Component {
                         </Link>
                     </div>
                     <Upload
-                    cards = {posts}
                     />
                 </div>
             </div>

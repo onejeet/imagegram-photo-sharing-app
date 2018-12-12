@@ -6,27 +6,24 @@ import PostHeader from './PostHeader';
 import PostDetails from './PostDetails';
 import '../sass/style.scss';
 
-class Home extends Component {
+class Photo extends Component {
 
     render() {
-        const {posts, sorting, sortPosts, deletePost, postLiker, getUser, currentUser} = this.props;
-        let finalPosts = sortPosts(sorting, posts);
+        const {post, getUser, deletePost, postLiker,  currentUser} = this.props;
+        console.log(post);
 
         if(Object.keys(this.props.currentUser).length === 0){
             console.log('not logged in!');
             return <Redirect to='/' />;
         }
-
         return (
         <div className="main">
             <Header
-            cards = {posts}
             currentUser = {currentUser}
             />
             <div className="full-view" role="grid">
                     <ul className="cards-list container">
                         <div className="overlay-container">
-                        {finalPosts.map((post) =>
                             <div className="image-box" key ={post.id}>
                                 <PostHeader
                                 post = {post}
@@ -46,7 +43,6 @@ class Home extends Component {
                                     currentUser = {currentUser}
                                 />
                             </div>
-                        )}
                         </div>
                     </ul>
             </div>
@@ -55,4 +51,4 @@ class Home extends Component {
     }
 }
 
-export default Home;
+export default Photo;

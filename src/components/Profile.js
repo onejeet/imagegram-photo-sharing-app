@@ -38,7 +38,6 @@ class Profile extends Component {
     render() {
         const {sorting, updateSorting, sortPosts, posts, deletePost, postLiker, currentUser} = this.props;
 
-
         if(Object.keys(this.props.currentUser).length === 0){
             console.log('not logged in!'+this.props.currentUser);
             return <Redirect to='/' />;
@@ -60,10 +59,9 @@ class Profile extends Component {
             updateSorting = {updateSorting}
             />
             <ImageGrid
-            user = {user}
             posts = {finalPosts}
-            deletePost = {deletePost}
             postLiker = {postLiker}
+            user = {user}
             />
         </div>
         );
