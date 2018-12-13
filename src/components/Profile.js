@@ -28,7 +28,7 @@ class Profile extends Component {
     }
 
     render() {
-        const {sorting, updateSorting, sortPosts, posts, deletePost, postLiker, currentUser} = this.props;
+        const {sorting, updateSorting, sortPosts, posts, deletePost, postLiker, currentUser, followHandler} = this.props;
 
 
         if(Object.keys(this.props.currentUser).length === 0){
@@ -50,6 +50,8 @@ class Profile extends Component {
             user = {user}
             sorting = {sorting}
             updateSorting = {updateSorting}
+            followHandler ={followHandler}
+            currentUser = {currentUser}
             />
             <ImageGrid
             posts = {finalPosts}

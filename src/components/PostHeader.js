@@ -10,7 +10,7 @@ class PostHeader extends Component {
     }
 
     render(){
-        const {post, getUser, deletePost, currentUser} = this.props;
+        const {post, getUser, deletePost, currentUser, followHandler} = this.props;
         let user = getUser(post.userid);
         return (
             <div className="card-header">
@@ -36,7 +36,10 @@ class PostHeader extends Component {
                     : null
                     }
                     <ul>
-                        <li> <i className="fa fa-user-circle-o" aria-hidden="true"></i>Follow</li>
+                        { (post.userid !== currentUser.id) ?
+                            <li onClick={() => followHandler(user.id)}> <i className="fa fa-user-circle-o" aria-hidden="true"></i>{user.followersids.indexOf(currentUser.id) < 0 ? 'Follow':'Unfollow'}</li>
+                            : null
+                        }
                         <li> <i className="fa fa-share-alt" aria-hidden="true"></i>Share</li>
                     </ul>
                 </div>

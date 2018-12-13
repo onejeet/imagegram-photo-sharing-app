@@ -22,7 +22,7 @@ class ProfileInfo extends Component {
     }
 
     render(){
-        const {user, sorting, updateSorting} = this.props;
+        const {user, sorting, updateSorting, followHandler, currentUser} = this.props;
         return (
             <div className="profile">
                 <div className="userInfo">
@@ -31,7 +31,10 @@ class ProfileInfo extends Component {
                     </div>
                     <p className="name">{user.name}</p>
                     <p>Followers: {this.kFormatter(user.followers)} • Following: {this.kFormatter(user.following)} </p>
-                    <button className="follow">Follow</button>
+                    { (user.id !== currentUser.id) ?
+                        <button className="follow" style={user.followersids.indexOf(currentUser.id) >= 0 ? {'background-color': '#ffffff', 'color':'#000000', 'border':'1px solid #198cff' } : null} onClick = {() => followHandler(user.id)}>{user.followersids.indexOf(currentUser.id) < 0 ? 'Follow':'Unfollow'}</button>
+                        : null
+                    }
                 </div>
                 <div className="actions">
                     <div className="filter">

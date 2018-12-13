@@ -9,9 +9,11 @@ import '../sass/style.scss';
 class Photo extends Component {
 
     render() {
-        const {posts, getUser, deletePost, postLiker,  currentUser} = this.props;
+        const {posts, getUser, deletePost, postLiker,  currentUser, followHandler} = this.props;
         let post = posts.filter((post) =>  post.id === this.props.match.params.postid)[0];
-        console.log(post);
+        if(!post){
+            return <Redirect to='/home' />;
+        }
         if(Object.keys(this.props.currentUser).length === 0){
             console.log('not logged in!');
             return <Redirect to='/' />;
@@ -30,6 +32,7 @@ class Photo extends Component {
                                 getUser = {getUser}
                                 deletePost = {deletePost}
                                 currentUser = {currentUser}
+                                followHandler = {followHandler}
                                 />
                                 <Post
                                 key = {post.id}

@@ -88,9 +88,13 @@
             font-weight: bold;
         }
         .follow{
+            width: 100px;
             font-size: 16px;
             margin-top: 10px;
-            border: 1px solid #198cff;
+            border: none;
+            font-weight: bold;
+            background-color: #198cff;
+            color:#ffffff;
             border-radius: 5px;
             padding: 5px 10px;
             cursor: pointer;

@@ -38,6 +38,8 @@ class App extends Component {
                     data.forEach((item, i) => {
                         user = {id:item.id, name:item.name, following:item.following, followers: item.followers, avatar: item.avatar ? item.avatar : DefaultAvatar}
                         user['liked'] = [];
+                        user['followersids'] = [];
+                        user['followingids'] = [];
                         item.posts.forEach((post, i) => {
                             singlePost = {id:post.id, userid:item.id, likes: post.likes, timestamp: post.timestamp, imageUrl:post.imageUrl}
                             posts.push(singlePost);
@@ -71,6 +73,33 @@ class App extends Component {
             }
         });
         this.setState({currentUser:newUser})
+    }
+
+    followHandler = (followingid) => {
+        const {users, currentUser} = this.state;
+        let followersid = currentUser.id;
+        users.map((user) => {
+            if(user.id === followersid){
+                if(user.followingids.indexOf(followingid) < 0){
+                    user.following += 1;
+                    user.followingids.push(followingid);
+                }else{
+                    user.following -= 1;
+                    user.followingids.splice(followingid,1);
+                }
+            }
+
+            if(user.id === followingid){
+                if(user.followersids.indexOf(followersid) < 0){
+                    user.followers += 1;
+                    user.followersids.push(followersid);
+                }else{
+                    user.followers -= 1;
+                    user.followersids.splice(followersid,1);
+                }
+            }
+        });
+        this.setState({users});
     }
 
     getUser = (userid) => {
@@ -158,6 +187,7 @@ class App extends Component {
                     sorting = {sorting}
                     sortPosts = {this.sortPosts}
                     getUser = {this.getUser}
+                    followHandler = {this.followHandler}
                     />
                 )}/>
                 <Route exact path='/profile/:userid' render={(props) => (
@@ -171,6 +201,7 @@ class App extends Component {
                     deletePost = {this.deletePost}
                     updateSorting = {this.updateSorting}
                     postLiker = {this.postLiker}
+                    followHandler = {this.followHandler}
                     />
                 )}/>
                 <Route exact path='/photo/:postid' render={(props) => (
@@ -181,6 +212,7 @@ class App extends Component {
                     deletePost = {this.deletePost}
                     postLiker = {this.postLiker}
                     getUser = {this.getUser}
+                    followHandler = {this.followHandler}
                     />
                 )}/>
             </Switch>
