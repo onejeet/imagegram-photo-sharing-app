@@ -16,7 +16,7 @@ class Header extends Component {
                 </div>
                 <div className="nav">
                     <div className="userInfo">
-                        <Link to='/profile'>
+                        <Link to={'/profile/'+currentUser.id}>
                         <div className="avatar">
                             <img src={currentUser.avatar} alt='' />
                         </div>

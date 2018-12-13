@@ -7,16 +7,8 @@ import '../sass/style.scss';
 
 class Profile extends Component {
 
-    getUrlVars = () => {
-        var vars = {};
-        var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
-            vars[key] = value;
-        });
-        return vars;
-    }
-
     getProfile = () => {
-        let userid = this.getUrlVars()['id'];
+        let userid = this.props.match.params.userid;
         let user;
         if(userid){
             user = this.props.getUser(userid);
@@ -37,6 +29,7 @@ class Profile extends Component {
 
     render() {
         const {sorting, updateSorting, sortPosts, posts, deletePost, postLiker, currentUser} = this.props;
+
 
         if(Object.keys(this.props.currentUser).length === 0){
             console.log('not logged in!'+this.props.currentUser);

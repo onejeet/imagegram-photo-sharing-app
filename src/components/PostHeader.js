@@ -6,7 +6,6 @@ import $ from 'jquery';
 class PostHeader extends Component {
 
     triggerPostOptions = (e, postid) => {
-
         $('#'+postid).toggleClass('show');
     }
 
@@ -19,7 +18,7 @@ class PostHeader extends Component {
                     <div className="userInfo">
                         <img src={user.avatar} alt='' />
                         <div className="info">
-                            <Link to={"/profile?id="+user.id}><p>{user.id}</p></Link>
+                            <Link to={"/profile/"+user.id}><p>{user.id}</p></Link>
                             <p className="location">Santa Clara</p>
                         </div>
                     </div>

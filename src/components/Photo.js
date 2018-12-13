@@ -9,9 +9,9 @@ import '../sass/style.scss';
 class Photo extends Component {
 
     render() {
-        const {post, getUser, deletePost, postLiker,  currentUser} = this.props;
+        const {posts, getUser, deletePost, postLiker,  currentUser} = this.props;
+        let post = posts.filter((post) =>  post.id === this.props.match.params.postid)[0];
         console.log(post);
-
         if(Object.keys(this.props.currentUser).length === 0){
             console.log('not logged in!');
             return <Redirect to='/' />;

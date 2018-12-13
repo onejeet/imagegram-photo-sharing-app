@@ -13,7 +13,7 @@ class ImageGrid extends Component {
                 <ul className="cards-list container">
                     {posts.map((post, i) =>
                         (post.userid === user.id) ?
-                        <Link to = '/photo' key = {post.id} post={post}>
+                        <Link to = {'/photo/'+post.id} key = {post.id} >
                             <Post
                             key = {post.id}
                             post = {post}

@@ -160,8 +160,9 @@ class App extends Component {
                     getUser = {this.getUser}
                     />
                 )}/>
-                <Route exact path='/profile' render={() => (
+                <Route exact path='/profile/:userid' render={(props) => (
                     <Profile
+                    {...props}
                     currentUser = {currentUser}
                     getUser = {this.getUser}
                     posts = {sortedPosts}
@@ -172,8 +173,10 @@ class App extends Component {
                     postLiker = {this.postLiker}
                     />
                 )}/>
-                <Route exact path='/photo' render={() => (
+                <Route exact path='/photo/:postid' render={(props) => (
                     <Photo
+                    {...props}
+                    posts = {sortedPosts}
                     currentUser = {currentUser}
                     deletePost = {this.deletePost}
                     postLiker = {this.postLiker}
