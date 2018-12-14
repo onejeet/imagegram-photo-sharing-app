@@ -170,14 +170,14 @@ class App extends Component {
         let sortedPosts = this.sortPosts(sorting, posts);
         return (
             <Switch>
-                <Route exact path='/' render={() => (
+                <Route exact path='/login' render={() => (
                     <Login
                         users = {users}
                         updateCurrentUser = {this.updateCurrentUser}
                         currentUser = {currentUser}
                     />
                 )}/>
-                <Route exact path='/home' render={() => (
+                <Route exact path='/' render={() => (
                     <Home
                     currentUser = {currentUser}
                     posts = {sortedPosts}

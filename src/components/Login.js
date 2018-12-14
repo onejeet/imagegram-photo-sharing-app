@@ -15,7 +15,7 @@ class Login extends Component {
             </div>
             <div className="user-list" role="grid">
             { !(Object.keys(this.props.currentUser).length === 0)
-                ? <h2> Logged in as: {currentUser.name} <Link to="/home"><p> Go to Home</p></Link> </h2>
+                ? <h2> Logged in as: {currentUser.name} <Link to="/"><p> Go to Home</p></Link> </h2>
                 : <h2>Login As:</h2>
              }
                 <ul>

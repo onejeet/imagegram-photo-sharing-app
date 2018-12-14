@@ -136,10 +136,11 @@
 }
 header{
     width: 100%;
-    background-color: rgb(218, 213, 216);
+    background-color: rgba(255,255,255,0.98);
+    box-shadow: 0 1px 10px rgba(0,0,0,0.1);
     position: sticky;
     top:0;
-    z-index: 100;
+    z-index: 1000000;
     .head-content{
         @include container;
         display: flex;
@@ -280,6 +281,7 @@ header{
                 padding: 5px;
                 -webkit-box-shadow: 0 2px 10px rgb(132, 129, 133);
                         box-shadow: 0 2px 10px rgb(132, 129, 133);
+                transition: display 0.5 ease;
                 ul{
                     list-style-type: none;
                     li{
@@ -380,6 +382,17 @@ header{
                 border-radius: 5px;
                 padding: 2px;
                 background-color: #ffffff;
+            }
+        }
+    }
+}
+
+@media all and (max-width:991px){
+    .grid{
+        .cards-list{
+            .card{
+                width: 150px;
+                height: 150px;
             }
         }
     }

@@ -6,7 +6,7 @@ import $ from 'jquery';
 
 
 class Header extends Component {
-
+    
     triggerDropdown = (e) => {
         $(e.target).siblings('.profile-dropdown').toggleClass('show');
 
@@ -19,7 +19,7 @@ class Header extends Component {
         <header>
             <div className="head-content">
                 <div className="branding">
-                    <Link to="/home"><img src={logo} alt="logo" /></Link>
+                    <Link to="/"><img src={logo} alt="logo" /></Link>
                 </div>
                 <div className="nav">
                     <div className="userInfo">
@@ -28,7 +28,7 @@ class Header extends Component {
                             <div className="profile-dropdown">
                                 <ul>
                                     <Link to={"/profile/"+currentUser.id}><li><i className="fa fa-user-circle" aria-hidden="true"></i>Profile</li></Link>
-                                    <Link to="/"><li><i className="fa fa-sign-out" aria-hidden="true"></i>Another User</li></Link>
+                                    <Link to="/login"><li><i className="fa fa-sign-out" aria-hidden="true"></i>Another User</li></Link>
                                 </ul>
                             </div>
                         </div>

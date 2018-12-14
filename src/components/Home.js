@@ -14,7 +14,7 @@ class Home extends Component {
 
         if(Object.keys(this.props.currentUser).length === 0){
             console.log('not logged in!');
-            return <Redirect to='/' />;
+            return <Redirect to='/login' />;
         }
 
         return (

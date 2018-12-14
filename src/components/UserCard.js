@@ -22,7 +22,7 @@ class UserCard extends Component {
         const {user} = this.props;
 
         return (
-            <Link to="/home">
+            <Link to="/">
             <li tabIndex="0" id={user.id} className="user-login-box" role="gridcell" onClick = {() => this.handleClick(user)}>
                  {this.jsUcfirst(user.name)}
                  <span className="username"> {user.id}</span>

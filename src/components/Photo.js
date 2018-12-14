@@ -17,7 +17,7 @@ class Photo extends Component {
         }
         if(Object.keys(currentUser).length === 0){
             console.log('not logged in!');
-            return <Redirect to='/' />;
+            return <Redirect to='/login' />;
         }
         return (
         <div className="main">

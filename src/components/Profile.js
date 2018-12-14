@@ -34,7 +34,7 @@ class Profile extends Component {
 
         if(Object.keys(this.props.currentUser).length === 0){
             console.log('not logged in!');
-            return <Redirect to='/' />;
+            return <Redirect to='/login' />;
         }
 
         let user = this.getProfile();
