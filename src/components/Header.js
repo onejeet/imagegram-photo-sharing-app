@@ -18,7 +18,7 @@ class Header extends Component {
                     <div className="userInfo">
                         <Link to={'/profile/'+currentUser.id}>
                         <div className="avatar">
-                            <img src={currentUser.avatar} alt='' />
+                            <img src={currentUser.avatar} alt='' title={currentUser.name}/>
                         </div>
                         </Link>
                     </div>

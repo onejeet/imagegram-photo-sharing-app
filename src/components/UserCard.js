@@ -13,6 +13,7 @@ class UserCard extends Component {
         let name = string.split(' ');
         name.map((word, i) => {
             name[i] = word.charAt(0).toUpperCase() + word.slice(1);
+            return true;
         });
         return name.join(' ');
     }

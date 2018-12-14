@@ -10,33 +10,6 @@ class PostDetail extends Component {
 
         let date = Date.parse(timestamp);
         date = new Date(date);
-        let formattedDate;
-        switch (date.getMonth()) {
-            case 0:
-                formattedDate = 'Sunday ';
-                break;
-            case 1:
-                formattedDate = 'Monday ';
-                break;
-            case 2:
-                formattedDate = 'Tuesday ';
-                break;
-            case 3:
-                formattedDate = 'Wednesday ';
-                break;
-            case 4:
-                formattedDate = 'Thursday ';
-                break;
-            case 5:
-                formattedDate = 'Friday ';
-                break;
-            case 6:
-                formattedDate = 'Saturday ';
-                break;
-
-            default:
-
-        }
         return monthNames[date.getMonth()]+" "+ date.getDate()+ ", "+date.getFullYear();
     }
 

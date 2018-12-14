@@ -31,10 +31,8 @@ class App extends Component {
         //fetch data from foursquare
         fetch(url)
         .then((response) => {
-            console.log(response.status);
             response.json().then((data) => {
                 if (response.status === 200) {
-                  console.log('API Call Successful');
                     data.forEach((item, i) => {
                         user = {id:item.id, name:item.name, following:item.following, followers: item.followers, avatar: item.avatar ? item.avatar : DefaultAvatar}
                         user['liked'] = [];
@@ -50,7 +48,6 @@ class App extends Component {
                     console.log('Sorry, Unable to retrieve data from API');
                 }
             this.setState({users,posts});
-            console.log(users);
         }).catch((error) => {
             console.log('Call is Not Successful '+error);
         })
@@ -65,12 +62,13 @@ class App extends Component {
     }
 
     updateCurrentUser = (userid) => {
-        const {users, currentUser} = this.state;
+        const {users} = this.state;
         let newUser;
         users.forEach((user)=>{
             if(user.id === userid){
                 newUser = user;
             }
+            return true;
         });
         this.setState({currentUser:newUser})
     }
@@ -98,6 +96,7 @@ class App extends Component {
                     user.followersids.splice(followersid,1);
                 }
             }
+            return true;
         });
         this.setState({users});
     }

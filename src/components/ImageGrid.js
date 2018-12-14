@@ -6,7 +6,7 @@ import '../sass/style.scss';
 class ImageGrid extends Component {
 
     render() {
-        const {user, posts, deletePost, postLiker} = this.props;
+        const {user, posts, postLiker} = this.props;
 
         return (
             <div className="grid" role="grid">

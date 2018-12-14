@@ -21,18 +21,19 @@ class Profile extends Component {
     filterPosts = (posts, user) => {
         let filteredPosts = [];
         posts.map((post, i) =>{
-            if(post.userid === user.id)
+            if(post.userid === user.id){
                 filteredPosts.push(post);
+            }
+            return true;
         });
         return filteredPosts;
     }
 
     render() {
-        const {sorting, updateSorting, sortPosts, posts, deletePost, postLiker, currentUser, followHandler} = this.props;
-
+        const {sorting, updateSorting, posts, postLiker, currentUser, followHandler} = this.props;
 
         if(Object.keys(this.props.currentUser).length === 0){
-            console.log('not logged in!'+this.props.currentUser);
+            console.log('not logged in!');
             return <Redirect to='/' />;
         }
 

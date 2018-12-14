@@ -11,10 +11,11 @@ class Photo extends Component {
     render() {
         const {posts, getUser, deletePost, postLiker,  currentUser, followHandler} = this.props;
         let post = posts.filter((post) =>  post.id === this.props.match.params.postid)[0];
+
         if(!post){
-            return <Redirect to='/home' />;
+            return <Redirect to={'/profile/'+currentUser.id} />;
         }
-        if(Object.keys(this.props.currentUser).length === 0){
+        if(Object.keys(currentUser).length === 0){
             console.log('not logged in!');
             return <Redirect to='/' />;
         }
