@@ -26,7 +26,7 @@ class App extends Component {
         const {users,posts} = this.state;
         let user;
         let singlePost;
-        const url = `https://www.mocky.io/v2/5c0f81d23100005c1324ec9c`;
+        const url = `https://www.mocky.io/v2/5c13580f3400008e00ecdf81`;
 
         //fetch data from foursquare
         fetch(url)

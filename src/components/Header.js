@@ -2,9 +2,16 @@ import React,{ Component } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../img/logo.svg';
 import Upload from './Upload';
+import $ from 'jquery';
 
 
 class Header extends Component {
+
+    triggerDropdown = (e) => {
+        $(e.target).siblings('.profile-dropdown').toggleClass('show');
+
+    }
+
 
     render(){
         const {currentUser} = this.props;
@@ -16,11 +23,15 @@ class Header extends Component {
                 </div>
                 <div className="nav">
                     <div className="userInfo">
-                        <Link to={'/profile/'+currentUser.id}>
                         <div className="avatar">
-                            <img src={currentUser.avatar} alt='' title={currentUser.name}/>
+                            <img src={currentUser.avatar} alt='' onClick={(e)=> this.triggerDropdown(e)} />
+                            <div className="profile-dropdown">
+                                <ul>
+                                    <Link to={"/profile/"+currentUser.id}><li><i className="fa fa-user-circle" aria-hidden="true"></i>Profile</li></Link>
+                                    <Link to="/"><li><i className="fa fa-sign-out" aria-hidden="true"></i>Another User</li></Link>
+                                </ul>
+                            </div>
                         </div>
-                        </Link>
                     </div>
                     <Upload
                     />
