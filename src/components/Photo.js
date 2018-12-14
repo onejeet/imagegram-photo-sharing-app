@@ -9,7 +9,7 @@ import '../sass/style.scss';
 class Photo extends Component {
 
     render() {
-        const {posts, getUser, deletePost, postLiker,  currentUser, followHandler} = this.props;
+        const {posts, getUser, deletePost, postLiker,  currentUser, followHandler, allComments, updateComments} = this.props;
         let post = posts.filter((post) =>  post.id === this.props.match.params.postid)[0];
 
         if(!post){
@@ -45,6 +45,9 @@ class Photo extends Component {
                                     post = {post}
                                     postLiker = {postLiker}
                                     currentUser = {currentUser}
+                                    getUser ={getUser}
+                                    allComments = {allComments}
+                                    updateComments = {updateComments}
                                 />
                             </div>
                         </div>

@@ -1,4 +1,5 @@
 import React,{ Component } from 'react';
+import Comments from './Comments';
 
 
 class PostDetail extends Component {
@@ -14,18 +15,27 @@ class PostDetail extends Component {
     }
 
     render(){
-        const {post, postLiker, currentUser} = this.props;
+        const {post, postLiker, currentUser, getUser, allComments, updateComments} = this.props;
         let timestamp = new Date(post.timestamp).toUTCString();
         return (
-            <div className="card-details">
-                <div className="heart">
-                    <i className="fa fa-heart" style={(currentUser.liked.indexOf(post.id)>= 0) ? {'color':'red'}: {'color':'inherit'}}  onClick={(e) => postLiker(post.id)}></i>
-                    <p>{post.likes.toLocaleString()}</p>
+            <div className="card-footer">
+                <div className="card-details">
+                    <div className="heart">
+                        <i className="fa fa-heart" style={(currentUser.liked.indexOf(post.id)>= 0) ? {'color':'red'}: {'color':'inherit'}}  onClick={(e) => postLiker(post.id)}></i>
+                        <p>{post.likes.toLocaleString()}</p>
+                    </div>
+                    <div className="timestamp">
+                        <i className="fa fa-clock-o" aria-hidden="true"></i>
+                        <p>{this.postTimeFormatter(timestamp)}</p>
+                    </div>
                 </div>
-                <div className="timestamp">
-                    <i className="fa fa-clock-o" aria-hidden="true"></i>
-                    <p>{this.postTimeFormatter(timestamp)}</p>
-                </div>
+                <Comments
+                post = {post}
+                getUser = {getUser}
+                currentUser = {currentUser}
+                allComments = {allComments}
+                updateComments = {updateComments}
+                />
             </div>
         );
 

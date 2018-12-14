@@ -15,18 +15,21 @@ class App extends Component {
         currentUser: {},
         users:[],
         posts:[],
+        allComments:[],
         sorting:'timestamp',
     }
 
     componentDidMount(){
         this.loadData();
+        console.log(this.state.allComments);
     }
 
     loadData = () => {
-        const {users,posts} = this.state;
+        const {users,posts, allComments} = this.state;
         let user;
         let singlePost;
-        const url = `https://www.mocky.io/v2/5c13580f3400008e00ecdf81`;
+        let postComments;
+        const url = `https://www.mocky.io/v2/5c14f7d73400005c1cb8e985`;
 
         //fetch data from foursquare
         fetch(url)
@@ -41,13 +44,15 @@ class App extends Component {
                         item.posts.forEach((post, i) => {
                             singlePost = {id:post.id, userid:item.id, likes: post.likes, timestamp: post.timestamp, imageUrl:post.imageUrl}
                             posts.push(singlePost);
+                            postComments = {postid:post.id, comments:post.comments ? post.comments : []}
+                            allComments.push(postComments);
                         });
                         users.push(user);
                     });
                 } else {
                     console.log('Sorry, Unable to retrieve data from API');
                 }
-            this.setState({users,posts});
+            this.setState({users,posts, allComments});
         }).catch((error) => {
             console.log('Call is Not Successful '+error);
         })
@@ -59,6 +64,10 @@ class App extends Component {
 
     updateSorting = (sort) => {
         this.setState({sorting: sort})
+    }
+
+    updateComments = (comments) => {
+        this.setState({allComments : comments})
     }
 
     updateCurrentUser = (userid) => {
@@ -115,19 +124,24 @@ class App extends Component {
     }
 
     deletePost = (postid) => {
-        const {posts, currentUser} = this.state;
+        const {posts, allComments, currentUser} = this.state;
         posts.some((post, i) => {
             if(post.id === postid){
                 if(post.userid === currentUser.id){
                     posts.splice(i,1);
-                    return true;
-                }else{
+                    allComments.some((postComments, j) => {
+                        if(postComments.postid === postid){
+                            allComments.splice(j,1);
+                            return true;
+                        }
+                        return null;
+                    });
                     return true;
                 }
             }
             return null;
         });
-        this.setState({posts});
+        this.setState({posts, allComments});
     }
 
     postLiker = (postid) => {
@@ -166,7 +180,7 @@ class App extends Component {
     }
 
     render() {
-        const {sorting, posts, users, currentUser} = this.state;
+        const {sorting, posts, users, currentUser, allComments} = this.state;
         let sortedPosts = this.sortPosts(sorting, posts);
         return (
             <Switch>
@@ -187,6 +201,8 @@ class App extends Component {
                     sortPosts = {this.sortPosts}
                     getUser = {this.getUser}
                     followHandler = {this.followHandler}
+                    allComments = {allComments}
+                    updateComments = {this.updateComments}
                     />
                 )}/>
                 <Route exact path='/profile/:userid' render={(props) => (
@@ -212,6 +228,8 @@ class App extends Component {
                     postLiker = {this.postLiker}
                     getUser = {this.getUser}
                     followHandler = {this.followHandler}
+                    allComments = {allComments}
+                    updateComments = {this.updateComments}
                     />
                 )}/>
             </Switch>

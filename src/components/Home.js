@@ -9,7 +9,7 @@ import '../sass/style.scss';
 class Home extends Component {
 
     render() {
-        const {posts, sorting, sortPosts, deletePost, postLiker, getUser, currentUser, followHandler} = this.props;
+        const {posts, sorting, sortPosts, deletePost, postLiker, getUser, currentUser, followHandler, allComments, updateComments} = this.props;
         let finalPosts = sortPosts(sorting, posts);
 
         if(Object.keys(this.props.currentUser).length === 0){
@@ -45,6 +45,9 @@ class Home extends Component {
                                     post = {post}
                                     postLiker = {postLiker}
                                     currentUser = {currentUser}
+                                    getUser = {getUser}
+                                    allComments = {allComments}
+                                    updateComments = {updateComments}
                                 />
                             </div>
                         )}

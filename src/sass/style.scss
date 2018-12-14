@@ -344,6 +344,55 @@ header{
                 }
             }
         }
+        .comments{
+            margin:15px 10px 0;
+            display: flex;
+            padding-bottom: 10px;
+            flex-direction: column;
+            p{
+                padding-bottom: 10px;
+                font-size: 14px;
+                img{
+                    width: 24px;
+                    height:24px;
+                    margin-right: 5px;
+                    line-height: inherit;
+                    position: relative;
+                    vertical-align: middle;
+                }
+            }
+            .new-comment-box{
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-start;
+                input[type='text']{
+                    font-size: 14px;
+                    border: none;
+                    display: inline-block;
+                    width: 100%;
+                    outline: none;
+                    margin-left: 5px;
+                    position: relative;
+                    vertical-align: bottom;
+                    &:focus{
+                        background-color: none;
+                        border-bottom: 1px solid rgba(0,0,0,0.4);
+                    }
+                }
+                button.commentPost{
+                    display: inline-block;
+                    color: #198cff;
+                    background-color: #ffffff;
+                    border: none;
+                    border-radius: 5px;
+                    outline: none;
+                    cursor: pointer;
+                    &[disabled], &:disabled{
+                        color:rgba(0,0,0,0.4);
+                    }
+                }
+            }
+        }
     }
 }
 .grid{
