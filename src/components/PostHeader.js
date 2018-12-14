@@ -7,11 +7,6 @@ class PostHeader extends Component {
 
     triggerPostOptions = (e, postid) => {
         $('#'+postid).toggleClass('show');
-        $('body').click(function(){
-            if($('#'+postid).hasClass('show')){
-                $('#'+postid).removeClass('show');
-            }
-        });
     }
 
     render(){
@@ -28,7 +23,7 @@ class PostHeader extends Component {
                         </div>
                     </div>
                     <div className="options">
-                        <i className="fa fa-ellipsis-v" aria-hidden="true" onClick={(e) => this.triggerPostOptions(e,post.id)}></i>
+                        <i className="fa fa-ellipsis-h" aria-hidden="true" onClick={(e) => this.triggerPostOptions(e,post.id)}></i>
                     </div>
                 </div>
 

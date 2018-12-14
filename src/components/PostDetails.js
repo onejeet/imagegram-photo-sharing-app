@@ -20,7 +20,7 @@ class PostDetail extends Component {
             <div className="card-details">
                 <div className="heart">
                     <i className="fa fa-heart" style={(currentUser.liked.indexOf(post.id)>= 0) ? {'color':'red'}: {'color':'inherit'}}  onClick={(e) => postLiker(post.id)}></i>
-                    <p>{post.likes}</p>
+                    <p>{post.likes.toLocaleString()}</p>
                 </div>
                 <div className="timestamp">
                     <i className="fa fa-clock-o" aria-hidden="true"></i>
