@@ -5,6 +5,7 @@ import Profile from './Profile.js';
 import Home from './Home.js';
 import Photo from './Photo';
 import Login from './Login.js';
+import Comments from './Comments';
 import $ from 'jquery';
 
 var DefaultAvatar = 'https://i.postimg.cc/FHh1RDbt/128px-Creative-Tail-Animal-kangoroo-svg.png';
@@ -123,6 +124,17 @@ class App extends Component {
         });
         return user;
     }
+    getComments = (postid) => {
+        const{allComments} = this.state;
+        let filteredComments;
+        allComments.some((commentObj) => {
+            if(commentObj.postid === postid){
+                    filteredComments = commentObj.comments !== undefined ? commentObj.comments : [];
+                    return true;
+            }
+        })
+        return filteredComments;
+    }
 
     deletePost = (postid) => {
         const {posts, allComments, currentUser} = this.state;
@@ -204,6 +216,7 @@ class App extends Component {
                     followHandler = {this.followHandler}
                     allComments = {allComments}
                     updateComments = {this.updateComments}
+                    getComments = {this.getComments}
                     />
                 )}/>
                 <Route exact path='/profile/:userid' render={(props) => (
@@ -231,6 +244,18 @@ class App extends Component {
                     followHandler = {this.followHandler}
                     allComments = {allComments}
                     updateComments = {this.updateComments}
+                    getComments ={this.getComments}
+                    />
+                )}/>
+                <Route exact path='/comments/:postid' render={(props) => (
+                    <Comments
+                    {...props}
+                    posts = {sortedPosts}
+                    currentUser = {currentUser}
+                    getUser = {this.getUser}
+                    allComments = {allComments}
+                    updateComments = {this.updateComments}
+                    getComments = {this.getComments}
                     />
                 )}/>
             </Switch>

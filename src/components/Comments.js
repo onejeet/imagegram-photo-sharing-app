@@ -1,27 +1,34 @@
 import React,{ Component } from 'react';
 import NewComment from './NewComment';
+import Header from './Header';
 
 
 class Comments extends Component {
 
-    filterComments = (allComments, postid) => {
-        let filteredComments;
-        allComments.some((commentObj) => {
-            if(commentObj.postid === postid){
-                    filteredComments = commentObj.comments !== undefined ? commentObj.comments : [];
-                    return true;
+    getPost = (postid, posts) => {
+        let post;
+        posts.some((p) => {
+            if(p.id === postid){
+                post = p;
+                return true;
             }
-        })
-        return filteredComments;
+            return false;
+        });
+        return post;
     }
 
 
     render(){
-        const {post, currentUser, getUser, allComments, updateComments} = this.props;
-        let timestamp = new Date(post.timestamp).toUTCString();
+        const {posts, currentUser, getUser, allComments, updateComments, getComments} = this.props;
+        let postid = this.props.match.params.postid;
 
-        let commentArray = this.filterComments(allComments, post.id);
+        let post = this.getPost(postid, posts);
+        let commentArray = getComments(postid);
         return (
+            <div className="main">
+                <Header
+                currentUser = {currentUser}
+                />
                 <div className="comments">
                     {commentArray.length > 0 ?
                         commentArray.map((comment, i) =>
@@ -38,6 +45,7 @@ class Comments extends Component {
                     updateComments = {updateComments}
                     />
                 </div>
+            </div>
         );
 
     }

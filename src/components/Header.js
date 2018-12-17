@@ -6,7 +6,7 @@ import $ from 'jquery';
 
 
 class Header extends Component {
-    
+
     triggerDropdown = (e) => {
         $(e.target).siblings('.profile-dropdown').toggleClass('show');
 
