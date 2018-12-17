@@ -21,7 +21,7 @@ class PostDetail extends Component {
             <div className="card-footer">
                 <div className="card-details">
                     <div className="heart">
-                        <i className="fa fa-heart" style={(currentUser.liked.indexOf(post.id)>= 0) ? {'color':'red'}: {'color':'inherit'}}  onClick={(e) => postLiker(post.id)}></i>
+                        <i className={(currentUser.liked.indexOf(post.id)>= 0) ? 'fa fa-heart': 'fa fa-heart-o'} style={(currentUser.liked.indexOf(post.id)>= 0) ? {'color':'red'}: {'color':'inherit'}}  onClick={(e) => postLiker(post.id)}></i>
                         <p>{post.likes.toLocaleString()}</p>
                     </div>
                     <div className="timestamp">

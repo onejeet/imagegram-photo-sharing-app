@@ -5,6 +5,7 @@ import Profile from './Profile.js';
 import Home from './Home.js';
 import Photo from './Photo';
 import Login from './Login.js';
+import $ from 'jquery';
 
 var DefaultAvatar = 'https://i.postimg.cc/FHh1RDbt/128px-Creative-Tail-Animal-kangoroo-svg.png';
 
