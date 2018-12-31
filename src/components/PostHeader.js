@@ -7,6 +7,12 @@ class PostHeader extends Component {
 
     triggerPostOptions = (e, postid) => {
         $('#'+postid).toggleClass('show');
+
+        $('body').click(function(){
+            if($('#'+postid).hasClass('show')){
+                $('#'+postid).toggleClass('show');
+            }
+        })
     }
 
     render(){

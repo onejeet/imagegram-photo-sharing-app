@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import '../App.css';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import Profile from './Profile.js';
 import Home from './Home.js';
 import Photo from './Photo';
@@ -258,6 +258,7 @@ class App extends Component {
                     getComments = {this.getComments}
                     />
                 )}/>
+                <Redirect from='*' to='/' />
             </Switch>
         );
         }

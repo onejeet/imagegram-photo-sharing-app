@@ -8,8 +8,13 @@ import $ from 'jquery';
 class Header extends Component {
 
     triggerDropdown = (e) => {
-        $(e.target).siblings('.profile-dropdown').toggleClass('show');
-
+        let el = $(e.target).siblings('.profile-dropdown');
+        el.toggleClass('show');
+        $('body').click(function(){
+            if(el.hasClass('show')){
+                el.toggleClass('show');
+            }
+        })
     }
 
 
