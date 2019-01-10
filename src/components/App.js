@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import '../App.css';
 import { Route, Switch, Redirect } from 'react-router-dom';
+import {setUsers} from '../Actions';
 import Profile from './Profile.js';
 import Home from './Home.js';
 import Photo from './Photo';
@@ -24,6 +25,7 @@ class App extends Component {
     componentDidMount(){
         this.loadData();
         console.log(this.state.allComments);
+        this.store = this.props.store;
     }
 
     loadData = () => {
