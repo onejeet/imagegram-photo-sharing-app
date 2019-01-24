@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import '../App.css';
 import { Route, Switch, Redirect } from 'react-router-dom';
-import {setUsers} from '../Actions';
+import {setUsers, setCurrentUser, setPosts, setallComments, setSorting} from '../Actions';
 import Profile from './Profile.js';
 import Home from './Home.js';
 import Photo from './Photo';
@@ -14,22 +14,22 @@ var DefaultAvatar = 'https://i.postimg.cc/FHh1RDbt/128px-Creative-Tail-Animal-ka
 
 
 class App extends Component {
-    state = {
-        currentUser: {},
-        users:[],
-        posts:[],
-        allComments:[],
-        sorting:'timestamp',
-    }
+    //state = {
+    //    currentUser: {},
+    //    users:[],
+    //    posts:[],
+    //    allComments:[],
+    //    sorting:'timestamp',
+    //}
 
     componentDidMount(){
         this.loadData();
-        console.log(this.state.allComments);
         this.store = this.props.store;
     }
 
     loadData = () => {
-        const {users,posts, allComments} = this.state;
+        //const {users,posts, allComments} = this.state;
+        const {users, posts, allComments} = this.props.store.getState();
         let user;
         let singlePost;
         let postComments;
@@ -56,7 +56,10 @@ class App extends Component {
                 } else {
                     console.log('Sorry, Unable to retrieve data from API');
                 }
-            this.setState({users,posts, allComments});
+            //this.setState({users,posts, allComments});
+            this.store.dispatch(setUsers(users));
+            this.store.dispatch(setPosts(posts));
+            this.store.dispatch(setallComments(allComments));
         }).catch((error) => {
             console.log('Call is Not Successful '+error);
         })
@@ -67,15 +70,18 @@ class App extends Component {
     }
 
     updateSorting = (sort) => {
-        this.setState({sorting: sort})
+        //this.setState({sorting: sort})
+        this.store.dispatch(setSorting(sort));
     }
 
     updateComments = (comments) => {
-        this.setState({allComments : comments})
+        //this.setState({allComments : comments})
+        this.store.dispatch(setallComments(comments));
     }
 
     updateCurrentUser = (userid) => {
-        const {users} = this.state;
+        //const {users} = this.state;
+        const {users} = this.store.getState();
         let newUser;
         users.forEach((user)=>{
             if(user.id === userid){
@@ -83,11 +89,13 @@ class App extends Component {
             }
             return true;
         });
-        this.setState({currentUser:newUser})
+        //this.setState({currentUser:newUser})
+        this.store.dispatch(setCurrentUser(newUser));
     }
 
     followHandler = (followingid) => {
-        const {users, currentUser} = this.state;
+        //const {users, currentUser} = this.state;
+        const {users, currentUser} = this.store.getState();
         let followersid = currentUser.id;
         users.map((user) => {
             if(user.id === followersid){
@@ -111,11 +119,13 @@ class App extends Component {
             }
             return true;
         });
-        this.setState({users});
+        //this.setState({users});
+        this.store.dispatch(setUsers(users));
     }
 
     getUser = (userid) => {
-        const {users} = this.state;
+        //const {users} = this.state;
+        const {users} = this.store.getState();
         let user;
         users.some((u) => {
             if(u.id === userid){
@@ -127,7 +137,8 @@ class App extends Component {
         return user;
     }
     getComments = (postid) => {
-        const{allComments} = this.state;
+        //const{allComments} = this.state;
+        const{allComments} = this.store.getState();
         let filteredComments;
         allComments.some((commentObj) => {
             if(commentObj.postid === postid){
@@ -139,7 +150,8 @@ class App extends Component {
     }
 
     deletePost = (postid) => {
-        const {posts, allComments, currentUser} = this.state;
+        //const {posts, allComments, currentUser} = this.state;
+        const {posts, allComments, currentUser} = this.store.getState();
         posts.some((post, i) => {
             if(post.id === postid){
                 if(post.userid === currentUser.id){
@@ -156,11 +168,14 @@ class App extends Component {
             }
             return null;
         });
-        this.setState({posts, allComments});
+        //this.setState({posts, allComments});
+        this.store.dispatch(setallComments(allComments));
+        this.store.dispatch(setPosts(posts));
     }
 
     postLiker = (postid) => {
-        const {posts, currentUser} = this.state;
+        //const {posts, currentUser} = this.state;
+        const {posts, currentUser} = this.store.getState();
 
         posts.some((post, i) => {
             if(post.id === postid){
@@ -177,7 +192,8 @@ class App extends Component {
             }
             return null;
         });
-        this.setState({posts});
+        //this.setState({posts});
+        this.store.dispatch(setPosts(posts));
     }
 
     sortPosts = (sorting, posts) => {
@@ -195,7 +211,8 @@ class App extends Component {
     }
 
     render() {
-        const {sorting, posts, users, currentUser, allComments} = this.state;
+        //const {sorting, posts, users, currentUser, allComments} = this.state;
+        const {sorting, posts, users, currentUser, allComments} = this.props.store.getState();
         let sortedPosts = this.sortPosts(sorting, posts);
         return (
             <Switch>
