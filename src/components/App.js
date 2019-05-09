@@ -7,7 +7,6 @@ import Home from './Home.js';
 import Photo from './Photo';
 import Login from './Login.js';
 import Comments from './Comments';
-import $ from 'jquery';
 
 var DefaultAvatar = 'https://i.postimg.cc/FHh1RDbt/128px-Creative-Tail-Animal-kangoroo-svg.png';
 
@@ -145,6 +144,7 @@ class App extends Component {
                     filteredComments = commentObj.comments !== undefined ? commentObj.comments : [];
                     return true;
             }
+            return false;
         })
         return filteredComments;
     }

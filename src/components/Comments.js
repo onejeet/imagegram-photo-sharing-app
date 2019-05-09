@@ -32,7 +32,7 @@ class Comments extends Component {
                 <div className="comments">
                     {commentArray.length > 0 ?
                         commentArray.map((comment, i) =>
-                        <p key={i}><img src={getUser(comment.authorid).avatar}></img>
+                        <p key={i}><img src={getUser(comment.authorid).avatar} alt='avatar'></img>
                         {comment.text}
                         </p>
                         )

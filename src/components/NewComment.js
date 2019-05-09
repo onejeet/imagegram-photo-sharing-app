@@ -31,6 +31,7 @@ class Comments extends Component {
                 });
                 return true;
             }
+            return false;
         });
         updateComments(allComments);
         this.setState({newComment:''});
@@ -40,7 +41,7 @@ class Comments extends Component {
         const {currentUser} = this.props;
         return (
                     <p className ="new-comment-box">
-                        <img src={currentUser.avatar}></img>
+                        <img src={currentUser.avatar} alt='avatar'></img>
                         <input type="text" name="comment" value={this.state.newComment} placeholder="add a comment" onChange = {(e) => this.handleChange(e)}/>
                         <button className="commentPost" onClick={(e) => this.handleCommentPost()} disabled={(this.state.newComment === '') ? 'disabled' : false}>Post</button>
                     </p>

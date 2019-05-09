@@ -16,7 +16,7 @@ class PostDetail extends Component {
     }
 
     render(){
-        const {post, postLiker, currentUser, getUser, allComments, updateComments, getComments} = this.props;
+        const {post, postLiker, currentUser, allComments, updateComments, getComments} = this.props;
         let timestamp = new Date(post.timestamp).toUTCString();
         let comments = getComments(post.id);
         return (

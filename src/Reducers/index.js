@@ -1,7 +1,6 @@
 
 
 export default (state = {}, action) => {
-    let newState = state;
     switch (action.type) {
         case 'SET_CURRENTUSER':
             return Object.assign({}, state, {
